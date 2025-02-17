@@ -1,5 +1,6 @@
 package com.multi.modular.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +29,11 @@ public class TeacherController {
     private FileManagementService fileManagementService;
     private final Folder FOLDER_NAME = Folder.TEACHER; 
 
+    // I don't like specifying that it throws an exception in an endpoint. But IOException is a checked 
+    // exception, so we need to declare it
     @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> newElement(@RequestPart("file") MultipartFile file) {
-        List<String[]> values = new ArrayList<>(); 
-        try {
-            values = fileManagementService.readCsv(file); 
-        } catch (Exception exception){
-            System.out.println(exception.getMessage());
-        }
+    public ResponseEntity<?> newElement(@RequestPart("file") MultipartFile file) throws IOException {
+        List<String[]> values = fileManagementService.readCsv(file); 
         return ResponseEntity.status(HttpStatus.CREATED).body(values);
     }
 }
