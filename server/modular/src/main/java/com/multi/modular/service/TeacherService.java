@@ -1,9 +1,10 @@
 package com.multi.modular.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-public class TeacherService {
+import com.multi.modular.domain.Teacher;
 
+public interface TeacherService {
+    List<Teacher> getAllTeachers(); 
     
 }
