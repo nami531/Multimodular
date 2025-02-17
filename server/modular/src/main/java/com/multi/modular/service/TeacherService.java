@@ -1,5 +1,9 @@
 package com.multi.modular.service;
 
-public interface TeacherService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class TeacherService {
+
     
 }

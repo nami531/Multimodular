@@ -1,6 +1,7 @@
 
 package com.multi.modular.exceptions; 
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,17 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
     // }
 
     // Añadimos el resto de excepciones que consideremos necesarias
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<Object> handleIOException(IOException ex, WebRequest request) {
+        ExceptionBody body = new ExceptionBody(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST, 
+                "Error de lectura del archivo: " + ex.getMessage(),
+                ((ServletWebRequest) request).getRequest().getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
 
     @Override
     // Proporciona una respuesta personalizada cuando se capturan excepciones manejadas dentro de la propia estructura de Spring.
