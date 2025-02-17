@@ -1,5 +1,8 @@
 package com.multi.modular.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,8 +30,12 @@ public class TeacherController {
 
     @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> newElement(@RequestPart("file") MultipartFile file) {
-        fileManagementService.store(file, FOLDER_NAME.path );
-        
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        List<String[]> values = new ArrayList<>(); 
+        try {
+            values = fileManagementService.readCsv(file); 
+        } catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(values);
     }
 }
