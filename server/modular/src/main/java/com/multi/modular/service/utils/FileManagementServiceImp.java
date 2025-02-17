@@ -17,7 +17,7 @@ public class FileManagementServiceImp implements FileManagementService {
 
     private final Path rootLocation = Paths.get("uploads");
 
-    public String store(MultipartFile file, String folder) throws IOException, RuntimeException {
+    public String store(MultipartFile file, String folder) throws RuntimeException {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String extension = StringUtils.getFilenameExtension(filename);
         String storedFilename = System.currentTimeMillis() + "." + extension;
