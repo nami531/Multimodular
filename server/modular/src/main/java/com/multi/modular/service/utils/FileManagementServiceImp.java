@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.multi.modular.exceptions.EmptyFile;
 
 @Service
+// TODO: Eliminar todos los try/catch -> GlobalControllerAdvice
 public class FileManagementServiceImp implements FileManagementService {
 
     private final Path rootLocation = Paths.get("uploads");
